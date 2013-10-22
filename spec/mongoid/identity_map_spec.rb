@@ -561,4 +561,17 @@ describe Mongoid::IdentityMap do
       end
     end
   end
+
+  context 'when casting with #becomes' do
+
+    it 'another instance references to the correct class' do
+      driver = Driver.create
+      car = Car.create driver: driver
+
+      another_instance = Driver.find_by id: driver.id
+      Mongoid::IdentityMap.clear
+      vehicle car.becomes(Vehicle)
+      expect(another_instance.vehicle.class).to be Car
+    end
+  end
 end
