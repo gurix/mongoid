@@ -3,6 +3,14 @@
 For instructions on upgrading to newer versions, visit
 [mongoid.org](http://mongoid.org/en/mongoid/docs/upgrading.html).
 
+## 4.0.1
+
+### Resolved Issues
+
+* \#3703 pluck method should not compact the values. (Arthur Neves)
+
+* \#3773 Use nanoseconds for cache_key timestamp instead of plain seconds. (Máximo Mussini)
+
 ## 4.0.0
 
 ### Major Changes (Backwards Incompatible)
@@ -138,7 +146,7 @@ For instructions on upgrading to newer versions, visit
 
 * \#3138 `update_attributes` can now be accessed simply by calling `update`.
 
-* \#3083 A new rake task: `rake mongoid:remove_undefined_indexes` has been added to
+* \#3083 A new rake task: `rake db:mongoid:remove_undefined_indexes` has been added to
   remove indexes from the database that are not explicitly defined in the models.
   (Aidan Feldman)
 
@@ -185,9 +193,6 @@ For instructions on upgrading to newer versions, visit
 * \#2956 Caching on queries now only happens when `cache` is specifically
   called. (Arthur Neves)
 
-* \#2898 Dirty attribute methods now properly handle field aliases.
-  (Niels Ganser)
-
 * \#2659 `Mongoid::Railtie` now properly uses only one initializer and
   the name has changed to `mongoid.load-config`.
 
@@ -223,6 +228,9 @@ For instructions on upgrading to newer versions, visit
   apply the default scope to the document, if the scope is not complex.
 
 * \#2200 Mass assignment security now mirrors Rails 4's behavior.
+  `without_protection` option was also removed.
+  `attr_accessible` class method was removed.
+  Mongoid and Strong parameters should work fine for mass assignment protection.
 
 * `delete_all` and `destroy_all` no longer take a `:conditions` hash but
   just the raw attributes.
@@ -344,6 +352,23 @@ For instructions on upgrading to newer versions, visit
 * \#2855 Multiple extensions can now be supplied to relations. (Daniel Libanori)
 
 ### Resolved Issues
+
+* \#3676 Make pluck work with embedded associations
+  (Arthur Neves)
+
+* \#2898 Dirty attribute methods now properly handle field aliases.
+  (Niels Ganser)
+
+* \#3620 Add ActiveModel module instance methods to prohibited_methods list.
+  (Arthur Neves)
+
+* \#3610 Don't allow atomic operations on read-only attributes
+  (Frederico Araujo)
+
+* \#3619 Don't validate documents that are flagged for destruction.
+  (Christopher J. Bottaro)
+
+* \#3617 Don't skip index creation on cyclic documents. (shaiker)
 
 * \#3568 Fixed missing attributes error on present localized fields.
 

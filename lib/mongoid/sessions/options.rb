@@ -158,10 +158,14 @@ module Mongoid
 
         def method_missing(name, *args, &block)
           set_persistence_options(@target, @options)
-          @target.send(name, *args, &block)
+          ret = @target.send(name, *args, &block)
+          if Mongoid::Criteria == ret.class
+            ret.with @options
+          end
+          ret
         ensure
           set_persistence_options(@target, nil)
-         end
+        end
 
         def send(symbol, *args)
           __send__(symbol, *args)
